@@ -20,10 +20,25 @@ class MyWindow(QtWidgets.QMainWindow):
         self.ui.setupUi(self)
 
         self.curve = self.ui.graphicsView.plot(name="Line", pen=pg.mkPen(color=black, width=2))
+        self.ui.plotButton.clicked.connect(self.plot)
+        # # self.random_plot()
+        # self.solution = AnalyticSolution(GraphParameters(1, 1, -10, 10, 1000))
+        # draw_plot(self.curve, self.solution.calculate_plot_points())
+        self.plot()
 
-        # self.random_plot()
-        self.solution = AnalyticSolution(GraphParameters(1, 1, -10, 10, 1000))
-        draw_plot(self.curve, self.solution.calculate_plot_points())
+
+    def plot(self):
+        gp = self.fetch_values()
+        solution = AnalyticSolution(gp)
+        draw_plot(self.curve, solution.calculate_plot_points())
+
+    def fetch_values(self) -> GraphParameters:
+        x0 = float(self.ui.x0_input.value())
+        y0 = float(self.ui.y0_input.value())
+        a = float(self.ui.a_input.value())
+        b = float(self.ui.b_input.value())
+        n = float(self.ui.pts_number_input.value())
+        return GraphParameters(x0, y0, a, b, n)
 
     def random_plot(self):
         random_array = np.random.random_sample(20)
