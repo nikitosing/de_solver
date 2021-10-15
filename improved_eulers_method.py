@@ -27,10 +27,9 @@ class ImprovedEulersMethod(PlotCalculator):
         return x, y
 
     def calculate_function(self, x) -> float:
-        to_return = self.y_last + 0.5 * self.step * (self.f(self.x_last, self.y_last) + self.f(x,
-                                                                                               self.y_last + self.f(
-                                                                                                   self.x_last,
-                                                                                                   self.y_last)))
+        k1 = self.step * self.f(self.x_last, self.y_last)
+        k2 = self.step * self.f(x, self.y_last + k1)
+        to_return = self.y_last + 0.5 * (k1 + k2)
         self.y_last = to_return
         self.x_last = x
         return to_return
