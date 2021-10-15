@@ -13,7 +13,6 @@ class AnalyticSolution(PlotCalculator):
 
     def calculate_plot_points(self) -> ([float], [float]):
         gp = self.graph_parameters
-        print(gp.a, gp.b, self.c)
         current_x = gp.a
         x = []
         y = []
