@@ -96,7 +96,7 @@ class Ui_MainWindow(object):
         self.b_input.setMinimum(-999.0)
         self.b_input.setMaximum(1000.0)
         self.b_input.setSingleStep(0.1)
-        self.b_input.setProperty("value", 1.5)
+        self.b_input.setProperty("value", 3.5)
         self.b_input.setObjectName("b_input")
         self.gridLayout.addWidget(self.b_input, 3, 0, 1, 1)
         self.pts_number_input = QtWidgets.QSpinBox(self.widget)
