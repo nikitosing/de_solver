@@ -11,6 +11,7 @@ from graphics_config import init
 from improved_eulers_method import ImprovedEulersMethod
 from main_window import Ui_MainWindow
 from plot_drawer import draw_plot
+from runge_kutta_method import RungeKuttaMethod
 
 
 class MyWindow(QtWidgets.QMainWindow):
@@ -24,6 +25,7 @@ class MyWindow(QtWidgets.QMainWindow):
         self.curve_analytic = self.ui.graphicsView.plot(pen=pg.mkPen(color=black, width=2))
         self.curve_eulers = self.ui.graphicsView.plot(pen=pg.mkPen(color=green, width=2))
         self.curve_improved_eulers = self.ui.graphicsView.plot(pen=pg.mkPen(color=red, width=2))
+        self.curve_runge_kutta = self.ui.graphicsView.plot(pen=pg.mkPen(color=blue, width=2))
         self.ui.plotButton.clicked.connect(self.plot)
         self.plot()
 
@@ -32,9 +34,11 @@ class MyWindow(QtWidgets.QMainWindow):
         analytic_solution = AnalyticSolution(gp)
         eulers_method = EulersMethod(gp)
         improved_eulers_method = ImprovedEulersMethod(gp)
+        runge_kutta_method = RungeKuttaMethod(gp)
         draw_plot(self.curve_analytic, analytic_solution.calculate_plot_points())
         draw_plot(self.curve_eulers, eulers_method.calculate_plot_points())
         draw_plot(self.curve_improved_eulers, improved_eulers_method.calculate_plot_points())
+        draw_plot(self.curve_runge_kutta, runge_kutta_method.calculate_plot_points())
 
     def fetch_values(self) -> GraphParameters:
         x0 = float(self.ui.x0_input.value())

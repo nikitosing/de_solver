@@ -17,4 +17,5 @@ class PlotCalculator(ABC):
     def calculate_function(self, x) -> float:
         pass
 
-
+    def f(self, x, y):
+        return 2 * x + y - 3

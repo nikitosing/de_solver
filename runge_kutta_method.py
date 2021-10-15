@@ -2,7 +2,7 @@ from graph_parameters import GraphParameters
 from plot_calculator import PlotCalculator
 
 
-class ImprovedEulersMethod(PlotCalculator):
+class RungeKuttaMethod(PlotCalculator):
     def __init__(self, graph_parameters: GraphParameters):
         self.y_last = graph_parameters.y0
         self.x_last = graph_parameters.y0
@@ -27,10 +27,11 @@ class ImprovedEulersMethod(PlotCalculator):
         return x, y
 
     def calculate_function(self, x) -> float:
-        to_return = self.y_last + 0.5 * self.step * (self.f(self.x_last, self.y_last) + self.f(x,
-                                                                                               self.y_last + self.f(
-                                                                                                   self.x_last,
-                                                                                                   self.y_last)))
+        k1 = self.step * self.f(self.x_last, self.y_last)
+        k2 = self.step * self.f(self.x_last + self.step * 0.5, self.y_last + 0.5 * k1)
+        k3 = self.step * self.f(self.x_last + self.step * 0.5, self.y_last + 0.5 * k2)
+        k4 = self.step * self.f(self.x_last + self.step, self.y_last + k3)
+        to_return = self.y_last + (1 / 6) * (k1 + 2 * k2 + 2 * k3 + k4)
         self.y_last = to_return
         self.x_last = x
         return to_return
