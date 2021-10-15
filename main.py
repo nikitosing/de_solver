@@ -1,10 +1,14 @@
 from PyQt5 import QtWidgets
+
+from analytic_solution import AnalyticSolution
+from graph_parameters import GraphParameters
 from main_window import Ui_MainWindow
 import sys
 import numpy as np
 import pyqtgraph as pg
 from colors import *
 from graphics_config import init
+from plot_drawer import draw_plot
 
 
 class MyWindow(QtWidgets.QMainWindow):
@@ -17,14 +21,13 @@ class MyWindow(QtWidgets.QMainWindow):
 
         self.curve = self.ui.graphicsView.plot(name="Line", pen=pg.mkPen(color=black, width=2))
 
-        self.random_plot()
+        # self.random_plot()
+        self.solution = AnalyticSolution(GraphParameters(1, 1, -10, 10, 1000))
+        draw_plot(self.curve, self.solution.calculate_plot_points())
 
     def random_plot(self):
         random_array = np.random.random_sample(20)
-        self.curve.setData([0.07348005, 0.80929058, 0.73979838, 0.64437829, 0.88681979,
-                            0.39149684, 0.33953551, 0.89475804, 0.06234156, 0.4569001,
-                            0.64637681, 0.70805449, 0.82971517, 0.16630447, 0.44577314,
-                            0.08118012, 0.90280082, 0.0334852, 0.50733612, 0.65677828])
+        self.curve.setData([0, 2, 3.5, 5], [0.07348005, 0.80929058, 0.73979838, 0.64437829])
 
 
 app = QtWidgets.QApplication([])
