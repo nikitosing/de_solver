@@ -7,12 +7,12 @@ class RungeKuttaMethod(PlotCalculator):
     check_box_name = "Runge-Kutta method (blue)"
 
     def __init__(self, graph_parameters: GraphParameters):
+        super().__init__(graph_parameters)
         self.y_last = graph_parameters.y0
         self.x_last = graph_parameters.y0
         self.first_calculating = True
-        self.step = abs(graph_parameters.b - graph_parameters.a) / graph_parameters.number_of_points
         self.analytic_solution = AnalyticSolution(graph_parameters)
-        super().__init__(graph_parameters)
+        self.calculate_step()
 
     def calculate_plot_points(self) -> ([float], [float]):
         gp = self.graph_parameters
@@ -41,6 +41,7 @@ class RungeKuttaMethod(PlotCalculator):
         return to_return
 
     def calculate_lte_points(self) -> ([float], [float]):
+        self.calculate_step()
         self.first_calculating = True
         gp = self.graph_parameters
         self.y_last = gp.y0
@@ -59,9 +60,3 @@ class RungeKuttaMethod(PlotCalculator):
 
     def calculate_lte(self, x) -> float:
         return abs(self.calculate_function(x) - self.analytic_solution.calculate_function(x))
-
-    def calculate_gte(self, x) -> float:
-        pass
-
-    def calculate_gte_points(self) -> ([float], [float]):
-        pass

@@ -43,6 +43,9 @@ class MyWindow(QtWidgets.QMainWindow):
         self.ui.x0_input.valueChanged.connect(self.plot)
         self.ui.y0_input.valueChanged.connect(self.plot)
         self.ui.pts_number_input.valueChanged.connect(self.plot)
+        self.ui.n_input.valueChanged.connect(self.plot)
+        self.ui.n_0_input.valueChanged.connect(self.plot)
+
         self.init_check_boxes()
         self.plot()
 
@@ -63,6 +66,7 @@ class MyWindow(QtWidgets.QMainWindow):
     def plot(self):
         self.plot_solutions()
         self.plot_lte()
+        self.plot_gte()
 
     def plot_solutions(self):
         gp = self.fetch_values()
@@ -89,13 +93,27 @@ class MyWindow(QtWidgets.QMainWindow):
             if self.plots_enabled[method.check_box_name]:
                 draw_plot(curve, method.calculate_lte_points())
 
+    def plot_gte(self):
+        gp = self.fetch_values()
+        eulers_method = EulersMethod(gp)
+        improved_eulers_method = ImprovedEulersMethod(gp)
+        runge_kutta_method = RungeKuttaMethod(gp)
+        methods = [(eulers_method, self.curve_eulers_gte), (improved_eulers_method, self.curve_improved_eulers_gte),
+                   (runge_kutta_method, self.curve_runge_kutta_gte)]
+        for (method, curve) in methods:
+            curve.clear()
+            if self.plots_enabled[method.check_box_name]:
+                draw_plot(curve, method.calculate_gte_points())
+
     def fetch_values(self) -> GraphParameters:
         x0 = float(self.ui.x0_input.value())
         y0 = float(self.ui.y0_input.value())
         a = float(self.ui.a_input.value())
         b = float(self.ui.b_input.value())
-        n = int(self.ui.pts_number_input.value())
-        return GraphParameters(x0, y0, a, b, n)
+        n_pts = int(self.ui.pts_number_input.value())
+        n_0 = int(self.ui.n_0_input.value())
+        n = int(self.ui.n_input.value())
+        return GraphParameters(x0, y0, a, b, n_pts, n_0, n)
 
 
 app = QtWidgets.QApplication([])

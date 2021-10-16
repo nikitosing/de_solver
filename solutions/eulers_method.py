@@ -38,6 +38,7 @@ class EulersMethod(PlotCalculator):
         return to_return
 
     def calculate_lte_points(self) -> ([float], [float]):
+        self.calculate_step()
         self.first_calculating = True
         gp = self.graph_parameters
         self.y_last = gp.y0
@@ -55,9 +56,3 @@ class EulersMethod(PlotCalculator):
 
     def calculate_lte(self, x) -> float:
         return abs(self.calculate_function(x) - self.analytic_solution.calculate_function(x))
-
-    def calculate_gte(self, x) -> float:
-        pass
-
-    def calculate_gte_points(self) -> ([float], [float]):
-        pass

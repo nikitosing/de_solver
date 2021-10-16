@@ -27,11 +27,11 @@ class AnalyticSolution(PlotCalculator):
             current_x += step
         return x, y
 
-    def calculate_lte_points(self, x) -> ([float], [float]):
-        pass
-
     def calculate_gte(self, x) -> float:
         pass
 
-    def calculate_gte_points(self, x) -> ([float], [float]):
+    def calculate_lte_points(self) -> ([float], [float]):
+        pass
+
+    def calculate_lte(self, x) -> float:
         pass
