@@ -32,7 +32,7 @@ class PlotCalculator(ABC):
         for i in range(n_0, n + 1):
             n_list.append(i)
             self.graph_parameters.number_of_points = i
-            e.append(self.calculate_lte_points()[1][-1])
+            e.append(max(self.calculate_lte_points()[1]))
         return n_list, e
 
     def f(self, x, y):
