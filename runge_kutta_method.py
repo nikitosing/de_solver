@@ -4,7 +4,7 @@ from plot_calculator import PlotCalculator
 
 
 class RungeKuttaMethod(PlotCalculator):
-    check_box_name = "Runge-Kutta method"
+    check_box_name = "Runge-Kutta method (blue)"
 
     def __init__(self, graph_parameters: GraphParameters):
         self.y_last = graph_parameters.y0

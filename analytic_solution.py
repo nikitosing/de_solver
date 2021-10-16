@@ -4,7 +4,7 @@ import math
 
 
 class AnalyticSolution(PlotCalculator):
-    check_box_name = "Analytic solution"
+    check_box_name = "Analytic solution (black)"
 
     def __init__(self, graph_parameters: GraphParameters):
         super().__init__(graph_parameters)

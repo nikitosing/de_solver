@@ -4,7 +4,7 @@ from plot_calculator import PlotCalculator
 
 
 class ImprovedEulersMethod(PlotCalculator):
-    check_box_name = "Improved Euler's method"
+    check_box_name = "Improved Euler's method (red)"
 
     def __init__(self, graph_parameters: GraphParameters):
         self.y_last = graph_parameters.y0
