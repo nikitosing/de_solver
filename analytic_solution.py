@@ -4,6 +4,8 @@ import math
 
 
 class AnalyticSolution(PlotCalculator):
+    check_box_name = "Analytic solution"
+
     def __init__(self, graph_parameters: GraphParameters):
         super().__init__(graph_parameters)
         self.c = (self.graph_parameters.y0 + 2 * self.graph_parameters.x0 - 1) / math.exp(self.graph_parameters.x0)

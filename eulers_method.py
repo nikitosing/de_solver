@@ -3,6 +3,8 @@ from plot_calculator import PlotCalculator
 
 
 class EulersMethod(PlotCalculator):
+    check_box_name = "Euler's method"
+
     def __init__(self, graph_parameters: GraphParameters):
         self.y_last = graph_parameters.y0
         self.first_calculating = True

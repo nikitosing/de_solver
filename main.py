@@ -21,12 +21,34 @@ class MyWindow(QtWidgets.QMainWindow):
         super(MyWindow, self).__init__()
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
+        self.plots_enabled = dict()
 
         self.curve_analytic = self.ui.graphicsView.plot(pen=pg.mkPen(color=black, width=2))
         self.curve_eulers = self.ui.graphicsView.plot(pen=pg.mkPen(color=green, width=2))
         self.curve_improved_eulers = self.ui.graphicsView.plot(pen=pg.mkPen(color=red, width=2))
         self.curve_runge_kutta = self.ui.graphicsView.plot(pen=pg.mkPen(color=blue, width=2))
-        self.ui.plotButton.clicked.connect(self.plot)
+        self.check_boxes = [self.ui.analytic_check_box, self.ui.improved_euler_check_box, self.ui.euler_check_box,
+                            self.ui.runge_kutta_check_box]
+        self.ui.a_input.valueChanged.connect(self.plot)
+        self.ui.b_input.valueChanged.connect(self.plot)
+        self.ui.x0_input.valueChanged.connect(self.plot)
+        self.ui.y0_input.valueChanged.connect(self.plot)
+        self.ui.pts_number_input.valueChanged.connect(self.plot)
+        self.init_check_boxes()
+        self.plot()
+
+    def init_check_boxes(self):
+        for box in self.check_boxes:
+            box.setChecked(True)
+            box.stateChanged.connect(self.handle_check_box_state_changed)
+        self.fetch_check_boxes_value()
+
+    def fetch_check_boxes_value(self):
+        for box in self.check_boxes:
+            self.plots_enabled[box.text()] = box.isChecked()
+
+    def handle_check_box_state_changed(self, state):
+        self.fetch_check_boxes_value()
         self.plot()
 
     def plot(self):
@@ -35,17 +57,19 @@ class MyWindow(QtWidgets.QMainWindow):
         eulers_method = EulersMethod(gp)
         improved_eulers_method = ImprovedEulersMethod(gp)
         runge_kutta_method = RungeKuttaMethod(gp)
-        draw_plot(self.curve_analytic, analytic_solution.calculate_plot_points())
-        draw_plot(self.curve_eulers, eulers_method.calculate_plot_points())
-        draw_plot(self.curve_improved_eulers, improved_eulers_method.calculate_plot_points())
-        draw_plot(self.curve_runge_kutta, runge_kutta_method.calculate_plot_points())
+        methods = [(analytic_solution, self.curve_analytic), (eulers_method, self.curve_eulers),
+                   (improved_eulers_method, self.curve_improved_eulers), (runge_kutta_method, self.curve_runge_kutta)]
+        for (method, curve) in methods:
+            curve.clear()
+            if self.plots_enabled[method.check_box_name]:
+                draw_plot(curve, method.calculate_plot_points())
 
     def fetch_values(self) -> GraphParameters:
         x0 = float(self.ui.x0_input.value())
         y0 = float(self.ui.y0_input.value())
         a = float(self.ui.a_input.value())
         b = float(self.ui.b_input.value())
-        n = float(self.ui.pts_number_input.value())
+        n = int(self.ui.pts_number_input.value())
         return GraphParameters(x0, y0, a, b, n)
 
 

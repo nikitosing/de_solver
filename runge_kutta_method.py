@@ -3,6 +3,8 @@ from plot_calculator import PlotCalculator
 
 
 class RungeKuttaMethod(PlotCalculator):
+    check_box_name = "Runge-Kutta method"
+
     def __init__(self, graph_parameters: GraphParameters):
         self.y_last = graph_parameters.y0
         self.x_last = graph_parameters.y0
