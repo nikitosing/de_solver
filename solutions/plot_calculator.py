@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 
-from graph_parameters import GraphParameters
+from helpers.graph_parameters import GraphParameters
 
 
 class PlotCalculator(ABC):

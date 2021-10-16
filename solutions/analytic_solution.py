@@ -1,5 +1,5 @@
-from graph_parameters import GraphParameters
-from plot_calculator import PlotCalculator
+from helpers.graph_parameters import GraphParameters
+from solutions.plot_calculator import PlotCalculator
 import math
 
 

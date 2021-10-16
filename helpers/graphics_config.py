@@ -1,5 +1,5 @@
 import pyqtgraph as pg
-from colors import *
+from helpers.colors import *
 
 
 def init():

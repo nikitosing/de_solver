@@ -1,23 +1,22 @@
-from analytic_solution import AnalyticSolution
-from graph_parameters import GraphParameters
-from plot_calculator import PlotCalculator
+from solutions.analytic_solution import AnalyticSolution
+from helpers.graph_parameters import GraphParameters
+from solutions.plot_calculator import PlotCalculator
 
 
-class ImprovedEulersMethod(PlotCalculator):
-    check_box_name = "Improved Euler's method (red)"
+class EulersMethod(PlotCalculator):
+    check_box_name = "Euler's method (green)"
 
     def __init__(self, graph_parameters: GraphParameters):
         self.y_last = graph_parameters.y0
-        self.x_last = graph_parameters.y0
         self.first_calculating = True
         self.step = abs(graph_parameters.b - graph_parameters.a) / graph_parameters.number_of_points
         self.analytic_solution = AnalyticSolution(graph_parameters)
         super().__init__(graph_parameters)
 
     def calculate_plot_points(self) -> ([float], [float]):
+        self.first_calculating = True
         gp = self.graph_parameters
         self.y_last = gp.y0
-        self.x_last = gp.x0
         current_x = gp.x0
         x = []
         y = []
@@ -31,18 +30,17 @@ class ImprovedEulersMethod(PlotCalculator):
         return x, y
 
     def calculate_function(self, x) -> float:
-        k1 = self.step * self.f(self.x_last, self.y_last)
-        k2 = self.step * self.f(x, self.y_last + k1)
-        to_return = self.y_last + 0.5 * (k1 + k2)
+        if self.first_calculating:
+            self.first_calculating = False
+            return self.y_last
+        to_return = self.y_last + self.step * (2 * x + self.y_last - 3)
         self.y_last = to_return
-        self.x_last = x
         return to_return
 
     def calculate_lte_points(self) -> ([float], [float]):
         self.first_calculating = True
         gp = self.graph_parameters
         self.y_last = gp.y0
-        self.x_last = gp.x0
         current_x = gp.x0
         x = []
         e = []

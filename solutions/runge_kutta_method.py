@@ -1,6 +1,6 @@
-from analytic_solution import AnalyticSolution
-from graph_parameters import GraphParameters
-from plot_calculator import PlotCalculator
+from solutions.analytic_solution import AnalyticSolution
+from helpers.graph_parameters import GraphParameters
+from solutions.plot_calculator import PlotCalculator
 
 
 class RungeKuttaMethod(PlotCalculator):

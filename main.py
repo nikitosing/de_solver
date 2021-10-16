@@ -3,15 +3,15 @@ import sys
 import pyqtgraph as pg
 from PyQt5 import QtWidgets
 
-from analytic_solution import AnalyticSolution
-from colors import *
-from eulers_method import EulersMethod
-from graph_parameters import GraphParameters
-from graphics_config import init
-from improved_eulers_method import ImprovedEulersMethod
-from main_window import Ui_MainWindow
-from plot_drawer import draw_plot
-from runge_kutta_method import RungeKuttaMethod
+from solutions.analytic_solution import AnalyticSolution
+from helpers.colors import *
+from solutions.eulers_method import EulersMethod
+from helpers.graph_parameters import GraphParameters
+from helpers.graphics_config import init
+from solutions.improved_eulers_method import ImprovedEulersMethod
+from ui.main_window import Ui_MainWindow
+from helpers.plot_drawer import draw_plot
+from solutions.runge_kutta_method import RungeKuttaMethod
 
 
 class MyWindow(QtWidgets.QMainWindow):
