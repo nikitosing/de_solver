@@ -23,10 +23,19 @@ class MyWindow(QtWidgets.QMainWindow):
         self.ui.setupUi(self)
         self.plots_enabled = dict()
 
-        self.curve_analytic = self.ui.graphicsView.plot(pen=pg.mkPen(color=black, width=2))
-        self.curve_eulers = self.ui.graphicsView.plot(pen=pg.mkPen(color=green, width=2))
-        self.curve_improved_eulers = self.ui.graphicsView.plot(pen=pg.mkPen(color=red, width=2))
-        self.curve_runge_kutta = self.ui.graphicsView.plot(pen=pg.mkPen(color=blue, width=2))
+        self.curve_analytic = self.ui.solution_plots.plot(pen=pg.mkPen(color=black, width=2))
+        self.curve_eulers = self.ui.solution_plots.plot(pen=pg.mkPen(color=green, width=2))
+        self.curve_improved_eulers = self.ui.solution_plots.plot(pen=pg.mkPen(color=red, width=2))
+        self.curve_runge_kutta = self.ui.solution_plots.plot(pen=pg.mkPen(color=blue, width=2))
+
+        self.curve_eulers_lte = self.ui.local_error_plot.plot(pen=pg.mkPen(color=green, width=2))
+        self.curve_improved_eulers_lte = self.ui.local_error_plot.plot(pen=pg.mkPen(color=red, width=2))
+        self.curve_runge_kutta_lte = self.ui.local_error_plot.plot(pen=pg.mkPen(color=blue, width=2))
+
+        self.curve_eulers_gte = self.ui.global_error_plot.plot(pen=pg.mkPen(color=green, width=2))
+        self.curve_improved_eulers_gte = self.ui.global_error_plot.plot(pen=pg.mkPen(color=red, width=2))
+        self.curve_runge_kutta_gte = self.ui.global_error_plot.plot(pen=pg.mkPen(color=blue, width=2))
+
         self.check_boxes = [self.ui.analytic_check_box, self.ui.improved_euler_check_box, self.ui.euler_check_box,
                             self.ui.runge_kutta_check_box]
         self.ui.a_input.valueChanged.connect(self.plot)
@@ -52,6 +61,10 @@ class MyWindow(QtWidgets.QMainWindow):
         self.plot()
 
     def plot(self):
+        self.plot_solutions()
+        self.plot_lte()
+
+    def plot_solutions(self):
         gp = self.fetch_values()
         analytic_solution = AnalyticSolution(gp)
         eulers_method = EulersMethod(gp)
@@ -63,6 +76,18 @@ class MyWindow(QtWidgets.QMainWindow):
             curve.clear()
             if self.plots_enabled[method.check_box_name]:
                 draw_plot(curve, method.calculate_plot_points())
+
+    def plot_lte(self):
+        gp = self.fetch_values()
+        eulers_method = EulersMethod(gp)
+        improved_eulers_method = ImprovedEulersMethod(gp)
+        runge_kutta_method = RungeKuttaMethod(gp)
+        methods = [(eulers_method, self.curve_eulers_lte), (improved_eulers_method, self.curve_improved_eulers_lte),
+                   (runge_kutta_method, self.curve_runge_kutta_lte)]
+        for (method, curve) in methods:
+            curve.clear()
+            if self.plots_enabled[method.check_box_name]:
+                draw_plot(curve, method.calculate_lte_points())
 
     def fetch_values(self) -> GraphParameters:
         x0 = float(self.ui.x0_input.value())

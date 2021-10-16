@@ -17,5 +17,17 @@ class PlotCalculator(ABC):
     def calculate_function(self, x) -> float:
         pass
 
+    @abstractmethod
+    def calculate_lte_points(self) -> ([float], [float]):
+        pass
+
+    @abstractmethod
+    def calculate_gte(self, x) -> float:
+        pass
+
+    @abstractmethod
+    def calculate_gte_points(self) -> ([float], [float]):
+        pass
+
     def f(self, x, y):
         return 2 * x + y - 3

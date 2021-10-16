@@ -35,51 +35,47 @@
    <string>de_solver_np_b20_01</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="PlotWidget" name="graphicsView">
-    <property name="geometry">
-     <rect>
-      <x>310</x>
-      <y>160</y>
-      <width>841</width>
-      <height>621</height>
-     </rect>
-    </property>
-   </widget>
    <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>410</y>
-      <width>144</width>
-      <height>88</height>
+      <x>20</x>
+      <y>380</y>
+      <width>171</width>
+      <height>95</height>
      </rect>
     </property>
     <layout class="QGridLayout" name="gridLayout_5">
      <item row="1" column="0">
       <widget class="QCheckBox" name="euler_check_box">
        <property name="text">
-        <string>Euler's method</string>
+        <string>Euler's method (green)</string>
        </property>
       </widget>
      </item>
      <item row="2" column="0">
       <widget class="QCheckBox" name="improved_euler_check_box">
        <property name="text">
-        <string>Improved Euler's method</string>
+        <string>Improved Euler's method (red)</string>
        </property>
       </widget>
      </item>
      <item row="3" column="0">
       <widget class="QCheckBox" name="runge_kutta_check_box">
        <property name="text">
-        <string>Runge-Kutta method</string>
+        <string>Runge-Kutta method (blue)</string>
        </property>
       </widget>
      </item>
      <item row="0" column="0">
       <widget class="QCheckBox" name="analytic_check_box">
+       <property name="font">
+        <font>
+         <underline>false</underline>
+         <strikeout>false</strikeout>
+        </font>
+       </property>
        <property name="text">
-        <string>Analytic solution</string>
+        <string>Analytic solution (black)</string>
        </property>
       </widget>
      </item>
@@ -169,7 +165,7 @@
         <double>0.100000000000000</double>
        </property>
        <property name="value">
-        <double>-3.500000000000000</double>
+        <double>1.000000000000000</double>
        </property>
       </widget>
      </item>
@@ -185,7 +181,7 @@
         <double>0.100000000000000</double>
        </property>
        <property name="value">
-        <double>3.500000000000000</double>
+        <double>7.000000000000000</double>
        </property>
       </widget>
      </item>
@@ -239,6 +235,82 @@
       </widget>
      </item>
     </layout>
+   </widget>
+   <widget class="QTabWidget" name="tabWidget">
+    <property name="geometry">
+     <rect>
+      <x>300</x>
+      <y>170</y>
+      <width>851</width>
+      <height>611</height>
+     </rect>
+    </property>
+    <property name="currentIndex">
+     <number>0</number>
+    </property>
+    <widget class="QWidget" name="solutions">
+     <attribute name="title">
+      <string>Solutions</string>
+     </attribute>
+     <widget class="PlotWidget" name="solution_plots">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>10</y>
+        <width>831</width>
+        <height>561</height>
+       </rect>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="lte">
+     <attribute name="title">
+      <string>Local TE</string>
+     </attribute>
+     <widget class="PlotWidget" name="local_error_plot">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>10</y>
+        <width>831</width>
+        <height>561</height>
+       </rect>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="gte">
+     <attribute name="title">
+      <string>Global TE</string>
+     </attribute>
+     <widget class="PlotWidget" name="global_error_plot">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>10</y>
+        <width>831</width>
+        <height>561</height>
+       </rect>
+      </property>
+     </widget>
+    </widget>
+   </widget>
+   <widget class="QLabel" name="label_6">
+    <property name="geometry">
+     <rect>
+      <x>620</x>
+      <y>30</y>
+      <width>144</width>
+      <height>29</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>14</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>y' = 2x + y - 3</string>
+    </property>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
