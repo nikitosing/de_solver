@@ -184,7 +184,7 @@ class Ui_MainWindow(object):
         self.n_0_input = QtWidgets.QSpinBox(self.layoutWidget2)
         self.n_0_input.setMinimum(1)
         self.n_0_input.setMaximum(100000)
-        self.n_0_input.setProperty("value", 5)
+        self.n_0_input.setProperty("value", 10)
         self.n_0_input.setObjectName("n_0_input")
         self.gridLayout.addWidget(self.n_0_input, 5, 0, 1, 1)
         self.n_input = QtWidgets.QSpinBox(self.layoutWidget2)
